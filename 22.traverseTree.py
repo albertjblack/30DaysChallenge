@@ -1,3 +1,5 @@
+import sys
+
 class Node:
     def __init__(self,data):
         self.right=self.left=None
@@ -16,27 +18,26 @@ class Solution:
                 root.right=cur
         return root
 
-
-    def getHeight(self,root):
+    def levelOrder(self,root):
         if root == None:
-            return -1
+            pass
+        else:   
+            queue = [root]
+            while len(queue) > 0:
+                root = queue[0]
+                print(root.data,end=" ")
+                if root.left != None:
+                    queue.append(root.left)
+                if root.right != None:
+                    queue.append(root.right)
+                queue.pop(0)
+            
 
-        right = self.getHeight(root.right)
-        left = self.getHeight(root.left)
-
-        if left > right:
-            return left + 1
-        return right + 1
-
-        
 
 T=int(input())
 myTree=Solution()
 root=None
-
 for i in range(T):
     data=int(input())
     root=myTree.insert(root,data)
-
-height=myTree.getHeight(root)
-print(height)       
+myTree.levelOrder(root)
